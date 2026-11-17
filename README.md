@@ -169,6 +169,22 @@ python -m qwen_pretrain inspect checkpoints/step_015259.pt
 训练恢复/inspect 使用完整 PyTorch 序列化，只加载自己的受信任 checkpoint。
 生成读取 `.pt` 时保留 `weights_only=True`，不自动回退到不受限的 pickle。
 
+## 导出为 Hugging Face 格式
+
+后训练（SFT/DPO/GRPO）交给 TRL、LLaMA-Factory 等现成框架；先把 milestone 或 `.pt` 导出成标准模型目录：
+
+```bash
+python -m qwen_pretrain export \
+  --checkpoint runs/5b/milestones/tokens_2000000000.safetensors \
+  --model-dir model \
+  --output-dir exported/2b
+```
+
+输出 `config.json`、`model.safetensors`、tokenizer 文件（含 Qwen3 chat template）和 `training_info.json`
+（来源、step、tokens）。默认 BF16，可用 `--dtype float32`。导出后会重新加载并逐张量核对，
+先写到 `<output-dir>.tmp` 再改名，中断不会留下看似完整的目录；目标目录非空时拒绝覆盖。
+之后用 `AutoModelForCausalLM.from_pretrained("exported/2b")` 加载。
+
 ## 模块结构
 
 ```text
@@ -182,6 +198,7 @@ qwen_pretrain/
 ├── modeling.py           # 共用模型构建
 ├── generation.py         # 生成
 ├── evaluation.py         # 评估和报告
+├── export.py             # 导出为 Hugging Face 模型目录
 ├── benchmarks.py        # 探针评分
 ├── prompts.py           # 固定探针内容
 └── data/
