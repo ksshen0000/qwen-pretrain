@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qwen-pretrain"
+version = "0.1.0"
+description = "Single-GPU Qwen pretraining with resumable checkpoints"
+readme = "README.md"
+requires-python = ">=3.10"
+# Lower bounds only: pin exact versions with the training server's `pip freeze` (pickle checkpoints).
+dependencies = ["numpy", "torch>=2.1", "transformers>=4.51", "safetensors"]
+
+[project.optional-dependencies]
+prepare = ["pyarrow"]
+
+[project.scripts]
+qwen-pretrain = "qwen_pretrain.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["qwen_pretrain*"]

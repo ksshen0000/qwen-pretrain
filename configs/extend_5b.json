@@ -1,0 +1,15 @@
+{
+  "run_dir": "runs/5b",
+  "data_dir": "prepared_next4b_parallel",
+  "allow_data_change": true,
+  "target_tokens": "5B",
+  "peak_lr": 0.0003,
+  "warmup_steps": 500,
+  "min_lr": 0.00001,
+  "save_every": 500,
+  "keep_checkpoints": 2,
+  "eval_every": 500,
+  "eval_batches": 10,
+  "log_every": 10,
+  "milestone_tokens": ["2B", "3B", "4B", "5B"]
+}

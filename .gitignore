@@ -1,0 +1,19 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Training artifacts and data stay off GitHub.
+*.pt
+*.safetensors
+*.bin
+*.parquet
+*.npy
+data/
+model/
+prepared*/
+checkpoints*/
+milestones/
+runs/
+logs/
