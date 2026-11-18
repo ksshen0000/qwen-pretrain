@@ -201,6 +201,7 @@ python posttrain/chat.py sft/5b/final
 - 使用纯 ChatML 模板（不含 Qwen3 的 `<think>` 块），只对助手回复计算 loss；模板随最终模型保存，`chat.py` 自动一致。
 - FP32 主权重 + BF16 autocast；最终模型存为 BF16。中断后重跑同一命令会从最新 checkpoint 继续。
 - 显存不足时用 `--batch-size 2 --grad-accum 32`，或 `--max-length 1024`。
+- 分词默认 8 个进程并行（`--num-proc`）；单进程处理 46 万条对话约需 35 分钟。
 - `chat.py` 中 `/reset` 清空历史，`/quit` 退出。
 
 ## 模块结构

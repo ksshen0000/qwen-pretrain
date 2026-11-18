@@ -61,6 +61,8 @@ def main(argv=None):
     parser.add_argument('--grad-accum', type=int, default=16)
     parser.add_argument('--save-steps', type=int, default=500)
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--num-proc', type=int, default=8,
+                        help='Parallel processes for tokenizing the dataset')
     args = parser.parse_args(argv)
 
     import torch
@@ -107,6 +109,7 @@ def main(argv=None):
         save_steps=args.save_steps,
         save_total_limit=2,
         seed=args.seed,
+        dataset_num_proc=args.num_proc,
         report_to='none',
         **warmup,
     )
