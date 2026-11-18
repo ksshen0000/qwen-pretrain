@@ -1,0 +1,43 @@
+{
+  "config": {
+    "model_dir": "/root/qwen-pretrain/model",
+    "data_dir": "/root/autodl-tmp/qwen-pretrain/prepared_next4b_parallel",
+    "out_dir": "/root/autodl-tmp/qwen-pretrain/checkpoints_5b",
+    "run_dir": "/root/autodl-tmp/qwen-pretrain/checkpoints_5b",
+    "seq_len": 2048,
+    "batch_size": 2,
+    "grad_accum": 16,
+    "max_steps": 76294,
+    "target_tokens": 5000000000,
+    "lr": 0.0003,
+    "min_lr": 1e-05,
+    "warmup_steps": 10,
+    "weight_decay": 0.1,
+    "eval_every": 500,
+    "eval_batches": 10,
+    "save_every": 500,
+    "keep_checkpoints": 2,
+    "log_every": 10,
+    "seed": 42,
+    "resume": "/root/autodl-tmp/qwen-pretrain/checkpoints_5b/step_021018.pt",
+    "init_from": "",
+    "new_lr_schedule": false,
+    "continuation_lr": null,
+    "continuation_warmup_steps": 0,
+    "no_checkpointing": false,
+    "milestone_dir": "/root/autodl-tmp/qwen-pretrain/milestones_5b",
+    "milestone_tokens": "2000000000,3000000000,4000000000,5000000000",
+    "allow_data_change": false,
+    "param_dtype": "float32"
+  },
+  "schedule": {
+    "start_step": 15259,
+    "end_step": 76294,
+    "peak_lr": 0.0003,
+    "min_lr": 1e-05,
+    "warmup_steps": 500,
+    "start_lr": 1e-05
+  },
+  "start_step": 21018,
+  "start_tokens": 1377435648
+}

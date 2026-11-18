@@ -1,0 +1,6 @@
+{
+  "step": 61036,
+  "target_tokens": 4000000000,
+  "tokens_processed": 4000055296,
+  "model_dir": "/root/qwen-pretrain/model"
+}

@@ -1,0 +1,39 @@
+{
+  "dtype": "uint32",
+  "vocab_size": 151669,
+  "eos_token_id": 151643,
+  "train_tokens": 4000000000,
+  "val_tokens": 100000,
+  "source_files": [
+    "data/sample/10BT/000_00000.parquet",
+    "data/sample/10BT/001_00000.parquet",
+    "data/sample/10BT/002_00000.parquet",
+    "data/sample/10BT/003_00000.parquet",
+    "data/sample/10BT/004_00000.parquet",
+    "data/sample/10BT/005_00000.parquet",
+    "data/sample/10BT/006_00000.parquet",
+    "data/sample/10BT/007_00000.parquet",
+    "data/sample/10BT/008_00000.parquet",
+    "data/sample/10BT/009_00000.parquet"
+  ],
+  "requested_train_tokens": 4000000000,
+  "preparation_complete": true,
+  "continued_from": "/root/autodl-tmp/qwen-pretrain/prepared_1b_parallel",
+  "skipped_original_tokens": {
+    "train": 999900000,
+    "val": 100000
+  },
+  "validation_copied_from": "/root/autodl-tmp/qwen-pretrain/prepared_1b_parallel/val.bin",
+  "source_paths_resolved": [
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/000_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/001_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/002_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/003_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/004_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/005_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/006_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/007_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/008_00000.parquet",
+    "/root/autodl-tmp/qwen-pretrain/data/sample/10BT/009_00000.parquet"
+  ]
+}
