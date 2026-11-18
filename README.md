@@ -185,6 +185,24 @@ python -m qwen_pretrain export \
 先写到 `<output-dir>.tmp` 再改名，中断不会留下看似完整的目录；目标目录非空时拒绝覆盖。
 之后用 `AutoModelForCausalLM.from_pretrained("exported/2b")` 加载。
 
+## 后训练（SFT）
+
+`posttrain/` 下是基于 TRL 的独立脚本，输入为上面导出的 HF 目录，不依赖本包的训练代码：
+
+```bash
+pip install trl datasets
+export HF_ENDPOINT=https://hf-mirror.com   # 国内服务器下载数据集
+python posttrain/sft.py --base exported/5b --output-dir sft/5b --limit 2000   # 试跑
+nohup python posttrain/sft.py --base exported/5b --output-dir sft/5b > sft.log 2>&1 &
+python posttrain/chat.py sft/5b/final
+```
+
+- 默认数据集 `HuggingFaceTB/smol-smoltalk`，1 个 epoch；`--dataset` 也可传含 `messages` 列的本地 .jsonl。
+- 使用纯 ChatML 模板（不含 Qwen3 的 `<think>` 块），只对助手回复计算 loss；模板随最终模型保存，`chat.py` 自动一致。
+- FP32 主权重 + BF16 autocast；最终模型存为 BF16。中断后重跑同一命令会从最新 checkpoint 继续。
+- 显存不足时用 `--batch-size 2 --grad-accum 32`，或 `--max-length 1024`。
+- `chat.py` 中 `/reset` 清空历史，`/quit` 退出。
+
 ## 模块结构
 
 ```text
