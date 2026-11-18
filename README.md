@@ -169,6 +169,15 @@ python -m qwen_pretrain inspect checkpoints/step_015259.pt
 训练恢复/inspect 使用完整 PyTorch 序列化，只加载自己的受信任 checkpoint。
 生成读取 `.pt` 时保留 `weights_only=True`，不自动回退到不受限的 pickle。
 
+## 训练曲线
+
+`tools/plot_metrics.py` 把 run 目录下的 `metrics.jsonl` 画成一张图（loss、学习率、梯度范数、吞吐量）：
+
+```bash
+pip install matplotlib
+python tools/plot_metrics.py runs/5b/metrics.jsonl --output logs/metrics.png
+```
+
 ## 导出为 Hugging Face 格式
 
 后训练（SFT/DPO/GRPO）交给 TRL、LLaMA-Factory 等现成框架；先把 milestone 或 `.pt` 导出成标准模型目录：
