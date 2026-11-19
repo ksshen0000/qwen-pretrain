@@ -10,8 +10,8 @@ venv/
 *.bin
 *.parquet
 *.npy
-data/
-model/
+/data/
+/model/
 prepared*/
 checkpoints*/
 milestones/
