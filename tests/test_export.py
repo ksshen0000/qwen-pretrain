@@ -43,8 +43,11 @@ class ExportTests(unittest.TestCase):
             output = root / 'exported'
             export(milestone, root / 'model', output)
 
-            reloaded = AutoModelForCausalLM.from_pretrained(output)
-            self.assertEqual(reloaded.dtype, torch.bfloat16)
+            from safetensors import safe_open
+            with safe_open(str(output / 'model.safetensors'), framework='pt') as stored:
+                self.assertEqual({stored.get_tensor(key).dtype for key in stored.keys()}, {torch.bfloat16})
+            # transformers 4.x loads FP32 by default, 5.x the stored dtype; compare in BF16.
+            reloaded = AutoModelForCausalLM.from_pretrained(output).to(torch.bfloat16)
             for key, value in reloaded.state_dict().items():
                 torch.testing.assert_close(value, weights[key], rtol=0, atol=0)
             self.assertIs(reloaded.lm_head.weight, reloaded.model.embed_tokens.weight)
