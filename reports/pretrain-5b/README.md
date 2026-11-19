@@ -1,6 +1,6 @@
 # Qwen3-0.6B 从零预训练：5B token 阶段报告
 
-单卡 RTX 4090 D（24GB），在 FineWeb `sample-10BT` 上从随机初始化训练 Qwen3-0.6B 架构，累计 5B token，2026-11-18 完成。
+单卡 RTX 4090 D（24GB），在 FineWeb-Edu `sample-10BT` 上从随机初始化训练 Qwen3-0.6B 架构，累计 5B token，2026-11-18 完成。
 
 ![训练曲线](metrics.png)
 
@@ -17,7 +17,7 @@
 |---|---|
 | 模型 | Qwen3 架构，28 层，hidden 1024，16 个注意力头 / 8 个 KV 头，词表 151,936，共享输入输出嵌入，参数 596,049,920（[model_config.json](model_config.json)） |
 | 初始化 | 随机初始化，只沿用 Qwen3-0.6B 的结构配置和 tokenizer |
-| 数据 | FineWeb `sample/10BT` 前 10 个 parquet；文档间用 `<\|endoftext\|>`（151643）分隔，打包为 2048 长度窗口（[data_meta.json](data_meta.json)） |
+| 数据 | FineWeb-Edu（`HuggingFaceFW/fineweb-edu`）`sample/10BT` 前 10 个 parquet（`000`–`009`）；文档间用 `<\|endoftext\|>`（151643）分隔，打包为 2048 长度窗口（[data_meta.json](data_meta.json)） |
 | 每步 token | 2048 × batch 2 × 梯度累积 16 = 65,536 |
 | 优化器 | AdamW，betas (0.9, 0.95)，eps 1e-8，weight decay 0.1（仅作用于矩阵和嵌入），梯度裁剪 1.0 |
 | 精度 | 1.38B 起为 FP32 主权重 + BF16 autocast；此前为纯 BF16 |

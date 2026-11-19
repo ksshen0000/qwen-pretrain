@@ -133,6 +133,20 @@ python -m qwen_pretrain prepare \
 输入切片不够时发布实际数量，metadata 中 `preparation_complete` 为 `false` 并打印警告。
 数据准备本身尚不支持断点续接；中断后选新输出目录，或显式 `--overwrite` 重建新目录。
 
+## 混合多个数据源
+
+训练时从 `train.bin` 均匀随机取窗口，所以各来源在 `train.bin` 中的 token 占比就是采样比例。
+每个来源单独 `prepare`，用 `--max-tokens` 设定份额（`--val-fraction` 相同时，验证集也按同样比例构成），再拼接：
+
+```bash
+python -m qwen_pretrain mix \
+  --source prepared_edu prepared_wiki prepared_math prepared_cosmo \
+  --output-dir prepared_mix
+```
+
+要求各来源的 dtype、词表大小和 EOS 一致，且准备完整；`meta.json` 最后写入，并在 `mixed_from` 中记录每个来源的
+路径、token 数和占比。输出是完整拷贝，确认后可以删除各来源目录。之后用 `extend --data-dir prepared_mix --allow-data-change`。
+
 ## 生成与评估
 
 milestone 可以直接生成，不需要加载优化器：

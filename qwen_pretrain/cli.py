@@ -95,14 +95,17 @@ def main(argv=None):
     for name, help_text in [('prepare', 'Prepare packed train/validation token files'),
                             ('generate', 'Generate from .pt or milestone .safetensors'),
                             ('evaluate', 'Evaluate permanent model milestones'),
+                            ('mix', 'Concatenate prepared datasets into one training mixture'),
                             ('export', 'Export a checkpoint as a Hugging Face model directory'),
                             ('inspect', 'Print metadata from a trusted full checkpoint')]:
         commands.add_parser(name, help=help_text, add_help=False)
-    if argv and argv[0] in ('prepare', 'generate', 'evaluate', 'export', 'inspect'):
+    if argv and argv[0] in ('prepare', 'mix', 'generate', 'evaluate', 'export', 'inspect'):
         name, rest = argv[0], argv[1:]
         try:
             if name == 'prepare':
                 from .data.prepare import main as operation
+            elif name == 'mix':
+                from .data.mix import main as operation
             elif name == 'generate':
                 from .generation import main as operation
             elif name == 'evaluate':
